@@ -27,19 +27,9 @@
 
     <fieldset class="form__block">
       <legend class="form__legend">Цвет</legend>
-      <ul class="colors">
-        <ColorsItem v-for="color in filterColors" :key="color.id" :color="color" :currentColorId.sync="currentColorId"/>
-        <!-- <li class="colors__item" v-for="color in filterColors" :key="color.id">
-          <label class="colors__label">
-            <input class="colors__radio sr-only" type="radio" name="color" :value="color.id" v-model.number="currentColorId">
-            <span class="colors__value" :style="{ backgroundColor: color.value }">
-            </span>
-          </label>
-        </li>
-      </ul>
+      <BaseColors :color-ids="colorIds" :current-color.sync="currentColorId"/>
     </fieldset>
-
-    <fieldset class="form__block">
+<!--<fieldset class="form__block">
       <legend class="form__legend">Объем в ГБ</legend>
       <ul class="check-list">
         <li class="check-list__item">
@@ -95,9 +85,9 @@
               <span>(313)</span>
             </span>
           </label>
-        </li> -->
+        </li>
       </ul>
-    </fieldset>
+    </fieldset>-->
 
     <button class="filter__submit button button--primery" type="submit">
       Применить
@@ -111,28 +101,28 @@
 
 <script>
 import categories from '../data/categories';
-import filterColors from '../data/filterColors';
-import ColorsItem from './ColorsItem.vue';
+
+// import ColorsItem from './ColorsItem.vue';
+import BaseColors from './BaseColors.vue';
 
 export default {
   components: {
-    ColorsItem,
+    BaseColors,
   },
+  props: ['priceFrom', 'priceTo', 'categoryId', 'colorId'],
   data() {
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
       currentColorId: 0,
+      colorIds: [1, 2, 3, 4, 5, 6, 7],
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorId'],
+
   computed: {
     categories() {
       return categories;
-    },
-    filterColors() {
-      return filterColors;
     },
   },
   watch: {

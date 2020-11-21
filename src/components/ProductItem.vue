@@ -11,29 +11,24 @@
       <span class="catalog__price"> {{ product.price }} ₽ </span>
 
       <ul class="colors colors--black">
-        <ColorsItem  v-for="color in productColors" :key="color.id" :color="color"/>
+        <BaseColors :class="'colors--black'" :color-ids="product.colorIds" :current-color.sync="currentColorId" />
       </ul>
   </li>
 </template>
 
 <script>
-import filterColors from '../data/filterColors';
-import ColorsItem from './ColorsItem.vue';
+import BaseColors from './BaseColors.vue';
 
 export default {
   components: {
-    ColorsItem,
-  },
-  data() {
-    return {
-      color: this.product.colorIds[0],
-    };
+    BaseColors,
   },
   props: ['product'],
-  computed: {
-    productColors() {
-      return this.product.colorIds.map((elem) => filterColors.find((item) => item.id === elem));
-    },
+  data() {
+    return {
+      currentColorId: this.product.colorIds[0],
+    };
   },
+
 };
 </script>
