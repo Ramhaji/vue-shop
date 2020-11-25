@@ -100,10 +100,8 @@
 </template>
 
 <script>
-import categories from '../data/categories';
-
-// import ColorsItem from './ColorsItem.vue';
-import BaseColors from './BaseColors.vue';
+import categories from '@/data/categories';
+import BaseColors from '@/components/BaseColors.vue';
 
 export default {
   components: {

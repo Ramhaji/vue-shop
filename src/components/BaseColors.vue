@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import colors from '../data/colors';
+import colors from '@/data/colors';
 
 export default {
   props: ['colorIds', 'currentColor'],
