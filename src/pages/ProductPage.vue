@@ -3,7 +3,7 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="#" @click.prevent="gotoPage('main')"> Каталог </a>
+          <a class="breadcrumbs__link" href="#" @click.prevent="gotoPage('main', pageParams)"> Каталог </a>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link" href="#" @click.prevent="gotoPage('main')"> {{category.title}} </a>
@@ -77,11 +77,12 @@
         <h2 class="item__title">{{product.title}}</h2>
         <div class="item__form">
           <form class="form" action="#" method="POST">
-            <b class="item__price"> {{product.price | numberFormat}} ₽ </b>
+            <b class="item__price"> {{product.price | priceFormat}}</b>
 
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
-              <ul class="colors">
+              <BaseColors :color-ids="product.colorIds" :current-color.sync="pageParams.currentColorId"/>
+              <!-- <ul class="colors">
                 <li class="colors__item">
                   <label class="colors__label">
                     <input
@@ -127,7 +128,7 @@
                     </span
                   ></label>
                 </li>
-              </ul>
+              </ul> -->
             </fieldset>
 
             <fieldset class="form__block">
@@ -262,11 +263,15 @@
 import products from '@/data/products';
 import categories from '@/data/categories';
 import gotoPage from '@/helpers/gotoPage';
-import numberFormat from '@/helpers/numberFormat';
+import priceFormat from '@/helpers/priceFormat';
+import BaseColors from '@/components/BaseColors.vue';
 
 export default {
+  components: {
+    BaseColors,
+  },
   filters: {
-    numberFormat,
+    priceFormat,
   },
   props: ['pageParams'],
   computed: {

@@ -6,7 +6,7 @@
           class="colors__radio sr-only"
           type="radio"
           :value="color.id"
-          v-model.number="curCol"
+          v-model.number="currentColorId"
         />
         <span class="colors__value" :style="{ backgroundColor: color.value }">
         </span>
@@ -21,9 +21,7 @@ import colors from '@/data/colors';
 export default {
   props: ['colorIds', 'currentColor'],
   data() {
-    return {
-      curCol: this.currentColor,
-    };
+    return {};
   },
   computed: {
     colors() {

@@ -1,6 +1,6 @@
 <template>
   <li class="catalog__item">
-    <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {id: product.id})">
+    <a class="catalog__pic" href="#" @click.prevent="gotoPage('product', {id: product.id, currentColorId })">
       <img v-bind:src="product.image" v-bind:alt="product.title" />
     </a>
 
@@ -8,7 +8,7 @@
       <a href="#"> {{ product.title }} </a>
     </h3>
 
-    <span class="catalog__price"> {{ product.price | numberFormat }} ₽ </span>
+    <span class="catalog__price"> {{ product.price | priceFormat }}</span>
 
     <ul class="colors colors--black">
       <BaseColors
@@ -23,14 +23,14 @@
 <script>
 import BaseColors from '@/components/BaseColors.vue';
 import gotoPage from '@/helpers/gotoPage';
-import numberFormat from '@/helpers/numberFormat';
+import priceFormat from '@/helpers/priceFormat';
 
 export default {
   components: {
     BaseColors,
   },
   filters: {
-    numberFormat,
+    priceFormat,
   },
   props: ['product'],
   data() {

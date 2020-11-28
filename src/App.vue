@@ -7,7 +7,7 @@
 
 <script>
 import MainPage from '@/pages/MainPage.vue';
-import ProductPage from '@/pages/ProducPage.vue';
+import ProductPage from '@/pages/ProductPage.vue';
 import NotFoundPage from '@/pages/NotFoundPage.vue';
 import eventBus from '@/eventBus';
 
