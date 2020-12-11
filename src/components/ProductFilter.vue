@@ -107,7 +107,7 @@ export default {
   components: {
     BaseColors,
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorId'],
+  props: ['filterPriceFrom', 'filterPriceTo', 'filterCategoryId', 'filterColorId'],
   data() {
     return {
       currentPriceFrom: 0,
@@ -124,31 +124,31 @@ export default {
     },
   },
   watch: {
-    priceFrom(value) {
+    filterPriceFrom(value) {
       this.currentPriceFrom = value;
     },
-    priceTo(value) {
+    filterPriceTo(value) {
       this.currentPriceTo = value;
     },
-    categoryId(value) {
+    filterCategoryId(value) {
       this.currentCategoryId = value;
     },
-    colorId(value) {
+    filterColorId(value) {
       this.currentColorId = value;
     },
   },
   methods: {
     submit() {
-      this.$emit('update:priceFrom', this.currentPriceFrom);
-      this.$emit('update:priceTo', this.currentPriceTo);
-      this.$emit('update:categoryId', this.currentCategoryId);
-      this.$emit('update:colorId', this.currentColorId);
+      this.$emit('update:filterPriceFrom', this.currentPriceFrom);
+      this.$emit('update:filterPriceTo', this.currentPriceTo);
+      this.$emit('update:filterCategoryId', this.currentCategoryId);
+      this.$emit('update:filterColorId', this.currentColorId);
     },
     reset() {
-      this.$emit('update:priceFrom', 0);
-      this.$emit('update:priceTo', 0);
-      this.$emit('update:categoryId', 0);
-      this.$emit('update:colorId', 0);
+      this.$emit('update:filterPriceFrom', 0);
+      this.$emit('update:filterPriceTo', 0);
+      this.$emit('update:filterCategoryId', 0);
+      this.$emit('update:filterColorId', 0);
     },
   },
 };

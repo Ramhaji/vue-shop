@@ -76,58 +76,12 @@
         <span class="item__code">Артикул: {{product.id}}</span>
         <h2 class="item__title">{{product.title}}</h2>
         <div class="item__form">
-          <form class="form" action="#" method="POST">
-            <b class="item__price"> {{product.price | priceFormat}} </b>
+          <form class="form" action="#" method="POST" @submit.prevent="addToCart">
+            <b class="item__price"> {{product.price | priceFormat}}</b>
 
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
-              <ul class="colors">
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input
-                      class="colors__radio sr-only"
-                      type="radio"
-                      name="color-item"
-                      value="blue"
-                      checked=""
-                    />
-                    <span
-                      class="colors__value"
-                      style="background-color: #73b6ea"
-                    >
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input
-                      class="colors__radio sr-only"
-                      type="radio"
-                      name="color-item"
-                      value="yellow"
-                    />
-                    <span
-                      class="colors__value"
-                      style="background-color: #ffbe15"
-                    >
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input
-                      class="colors__radio sr-only"
-                      type="radio"
-                      name="color-item"
-                      value="gray" />
-                    <span
-                      class="colors__value"
-                      style="background-color: #939393"
-                    >
-                    </span
-                  ></label>
-                </li>
-              </ul>
+              <BaseColors :color-ids="product.colorIds" :current-color.sync="currentColorId" />
             </fieldset>
 
             <fieldset class="form__block">
@@ -179,7 +133,7 @@
                   </svg>
                 </button>
 
-                <input type="text" value="1" name="count" />
+                <input type="text" v-model.number="productAmount" />
 
                 <button type="button" aria-label="Добавить один товар">
                   <svg width="12" height="12" fill="currentColor">
@@ -261,23 +215,40 @@
 <script>
 import products from '@/data/products';
 import categories from '@/data/categories';
-import gotoPage from '@/helpers/gotoPage';
 import priceFormat from '@/helpers/priceFormat';
+import BaseColors from '@/components/BaseColors.vue';
 
 export default {
+  components: {
+    BaseColors,
+  },
   filters: {
     priceFormat,
+  },
+  props: ['pageParams'],
+  data() {
+    return {
+      productAmount: 1,
+    };
   },
   computed: {
     product() {
       return products.find((product) => product.id === +this.$route.params.id);
+    },
+    currentColorId() {
+      return +this.$route.params.currentColorId;
     },
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
     },
   },
   methods: {
-    gotoPage,
+    addToCart() {
+      this.$store.commit(
+        'addProductToCart',
+        { productId: this.product.id, amount: this.productAmount },
+      );
+    },
   },
 };
 </script>
